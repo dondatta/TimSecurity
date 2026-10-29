@@ -1,0 +1,203 @@
+<title>Robot-Assisted Patrol</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single spec-sheet page. A steel-ink hero band, then a two-column body (cost + capabilities | response chain + patrol log), then a contact strip. */
+:root {
+  --paper: #f3f4f2;
+  --sheet: #ffffff;
+  --ink: #17212b;
+  --muted: #56636f;
+  --rule: #d5dadd;
+  --steel: #1f3346;
+  --steel-fg: #eef2f5;
+  --signal: #f2b200;
+  --signal-ink: #1a1400;
+  --guard-bar: #9aa6b0;
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1419; --sheet: #151d24; --ink: #e6ebef; --muted: #9aa7b2; --rule: #2a3640;
+    --steel: #0a1218; --steel-fg: #e6ebef; --signal: #f5bd1f; --signal-ink: #1a1400; --guard-bar: #5d6b77;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1419; --sheet: #151d24; --ink: #e6ebef; --muted: #9aa7b2; --rule: #2a3640;
+  --steel: #0a1218; --steel-fg: #e6ebef; --signal: #f5bd1f; --signal-ink: #1a1400; --guard-bar: #5d6b77;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font: 400 15px/1.55 var(--body);
+  padding-block: 24px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.sheet { max-width: 920px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--rule); }
+
+/* Hero */
+.hero { background: var(--steel); color: var(--steel-fg); padding: 28px 36px 32px; display: grid; gap: 18px; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background: repeating-linear-gradient(135deg, var(--signal) 0 14px, var(--steel) 14px 28px); }
+.brand { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+.brand b { font: 700 20px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
+.brand span { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+h1 { font: 800 clamp(34px, 6vw, 56px)/.98 var(--display); text-transform: uppercase; margin: 0; text-wrap: balance; letter-spacing: .005em; }
+h1 em { font-style: normal; color: var(--signal); }
+.lede { margin: 0; max-width: 60ch; font-size: 16.5px; opacity: .92; }
+
+/* Body */
+.body { display: grid; grid-template-columns: 1.05fr 1fr; gap: 0; }
+.col { padding: 28px 36px; display: grid; gap: 28px; align-content: start; min-width: 0; }
+.col + .col { border-left: 1px solid var(--rule); }
+h2 { font: 700 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h3 { font: 700 24px/1.05 var(--display); text-transform: uppercase; margin: 0 0 10px; text-wrap: balance; }
+p { margin: 0; }
+
+/* Cost bars */
+.cost { display: grid; gap: 14px; }
+.row { display: grid; gap: 6px; }
+.row-head { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.row-head strong { font: 500 14px/1.2 var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.track { position: relative; height: 18px; background: repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 11.111%); border-bottom: 1px solid var(--rule); }
+.range { position: absolute; top: 2px; bottom: 2px; }
+.range.guard { left: 38.889%; width: 55.556%; background: var(--guard-bar); }
+.range.robot { left: 7.778%; width: 8.889%; background: var(--signal); }
+.axis { display: flex; justify-content: space-between; font: 400 11px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.note { font-size: 12.5px; color: var(--muted); }
+
+/* Capabilities */
+.caps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+.caps li { display: grid; gap: 2px; min-width: 0; }
+.caps b { font-weight: 600; font-size: 14.5px; }
+.caps span { font-size: 13.5px; color: var(--muted); }
+
+/* Response chain */
+.chain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.chain li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); counter-increment: step; }
+.chain li:first-child { border-top: 0; padding-top: 0; }
+.chain li::before { content: counter(step); font: 700 22px/1 var(--display); color: var(--signal-ink); background: var(--signal); width: 34px; height: 34px; display: grid; place-items: center; }
+.chain b { display: block; font-weight: 600; }
+.chain span { font-size: 13.5px; color: var(--muted); }
+
+/* Patrol log */
+.log { font: 400 12.5px/1.65 var(--mono); background: var(--paper); border: 1px solid var(--rule); padding: 12px 14px; overflow-x: auto; }
+.log table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.log td { padding: 0 10px 0 0; vertical-align: top; white-space: nowrap; }
+.log td:last-child { white-space: normal; padding-right: 0; }
+.log .t { color: var(--muted); }
+.flag { color: var(--signal-ink); background: var(--signal); padding: 0 4px; font-weight: 500; }
+.log-cap { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+.sites { display: flex; flex-wrap: wrap; gap: 6px; }
+.sites span { font: 500 12px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--rule); padding: 7px 9px; }
+
+/* Contact */
+.cta { border-top: 1px solid var(--rule); padding: 24px 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
+.cta h3 { margin: 0 0 4px; }
+.cta p { color: var(--muted); font-size: 14px; max-width: 46ch; }
+.contact { display: grid; gap: 4px; font: 500 14px/1.4 var(--mono); user-select: all; }
+.contact span { user-select: text; }
+.fine { padding: 0 36px 22px; font-size: 11.5px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .body { grid-template-columns: 1fr; }
+  .col + .col { border-left: 0; border-top: 1px solid var(--rule); }
+  .hero, .col, .cta { padding-left: 20px; padding-right: 20px; }
+  .fine { padding-left: 20px; padding-right: 20px; }
+}
+@media (max-width: 440px) { .caps { grid-template-columns: 1fr; } }
+</style>
+
+<article class="sheet">
+  <header class="hero">
+    <div class="brand"><b>[Your Company Name]</b><span>Robot-Assisted Patrol</span></div>
+    <h1>24/7 patrol coverage <em>without 24/7 payroll</em></h1>
+    <p class="lede">We add an autonomous security robot to your site. It patrols on a set route day and night, records everything, and alerts our monitoring team the moment something looks wrong. Our licensed officers respond when a person is needed.</p>
+  </header>
+
+  <div class="body">
+    <section class="col">
+      <div>
+        <h2>What coverage costs per hour</h2>
+        <div class="cost">
+          <div class="row">
+            <div class="row-head"><span>Traditional guard post</span><strong>$35–$85 / hr</strong></div>
+            <div class="track"><div class="range guard"></div></div>
+          </div>
+          <div class="row">
+            <div class="row-head"><span>Security robot patrol</span><strong>$7–$15 / hr</strong></div>
+            <div class="track"><div class="range robot"></div></div>
+          </div>
+          <div class="axis"><span>$0</span><span>$30</span><span>$60</span><span>$90</span></div>
+          <p class="note">Most sites keep a smaller officer team and let the robot cover the long, repetitive rounds, especially overnight. Your quote depends on site size, hours and coverage.</p>
+        </div>
+      </div>
+
+      <div>
+        <h2>What the robot does</h2>
+        <ul class="caps">
+          <li><b>360° HD video</b><span>Recorded continuously and searchable after any incident.</span></li>
+          <li><b>Never skips a round</b><span>Same route, every time, with time-stamped proof.</span></li>
+          <li><b>Plate &amp; motion detection</b><span>Flags after-hours vehicles and people in restricted areas.</span></li>
+          <li><b>Two-way audio</b><span>Our team can speak to anyone on site through the robot.</span></li>
+          <li><b>A visible deterrent</b><span>A marked patrol unit discourages loitering and theft.</span></li>
+          <li><b>No sick days</b><span>Coverage holds through holidays, weather and shift gaps.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="col">
+      <div>
+        <h2>How an alert is handled</h2>
+        <ol class="chain">
+          <li><div><b>Robot detects</b><span>Motion, a person, or a vehicle where none should be.</span></div></li>
+          <li><div><b>Monitoring verifies</b><span>Our operators view the live feed and talk through the speaker.</span></div></li>
+          <li><div><b>Officer responds</b><span>We dispatch an officer or call police, and send you a report.</span></div></li>
+        </ol>
+      </div>
+
+      <div>
+        <h2>Sample overnight patrol log</h2>
+        <div class="log">
+          <table>
+            <tr><td class="t">22:00</td><td>Patrol start · Lot A → Dock 3 → Lot B</td></tr>
+            <tr><td class="t">23:42</td><td>Round 4 complete · all gates closed</td></tr>
+            <tr><td class="t">01:17</td><td><span class="flag">ALERT</span> Person at Dock 3 fence</td></tr>
+            <tr><td class="t">01:18</td><td>Operator voice warning issued</td></tr>
+            <tr><td class="t">01:19</td><td>Subject left area · officer notified</td></tr>
+            <tr><td class="t">06:00</td><td>Patrol end · 16 rounds · report sent</td></tr>
+          </table>
+        </div>
+        <p class="log-cap">Example only. You receive a report like this every morning.</p>
+      </div>
+
+      <div>
+        <h2>Built for</h2>
+        <div class="sites">
+          <span>Parking lots</span><span>Warehouses</span><span>Construction sites</span><span>Retail centers</span><span>Office campuses</span><span>Apartment communities</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer class="cta">
+    <div>
+      <h3>Book a free site assessment</h3>
+      <p>We walk your property, map a patrol route, and show you what robot-assisted coverage would cost next to your current guard hours.</p>
+    </div>
+    <div class="contact">
+      <span>[Contact name]</span>
+      <span>[(555) 000-0000]</span>
+      <span>[email@yourcompany.com]</span>
+    </div>
+  </footer>
+  <p class="fine">Hourly figures are published 2026 industry ranges for US guard services and leased security robots, shown for comparison only. They are not a quote.</p>
+</article>
