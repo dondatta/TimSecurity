@@ -96,7 +96,7 @@ export default function RoboticsPage() {
       <section className="section" style={{ paddingBlock: 32 }}>
         <div className="wrap">
           <p className="fine">
-            Equipment photos: Knightscope K5 by Votpuske and DJI Mavic 3 by HKesteloo, via Wikimedia Commons (CC BY-SA 4.0).
+            Equipment photos via Wikimedia Commons: Knightscope K5 by Votpuske and DJI Mavic 3 by HKesteloo (CC BY-SA 4.0); SEQSENSE indoor robot (CC BY 4.0).
             They show the types of equipment we deploy, not UA Securities units.
           </p>
         </div>
