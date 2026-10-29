@@ -99,6 +99,13 @@ em.hl { font-style: normal; color: var(--orange); }
 .hero-media { position: relative; min-width: 0; }
 .hero-media img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border: 1px solid var(--char-line); }
 .hero-media figcaption { font: 500 13px/1.4 var(--mono); color: var(--on-char-muted); margin-top: 10px; }
+.robot-card { position: absolute; left: -24px; bottom: 76px; width: min(300px, 70%); display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; background: var(--char-deep); border: 1px solid var(--char-line); border-left: 4px solid var(--orange); padding: 10px; text-decoration: none; color: var(--on-char); box-shadow: 0 12px 30px rgba(0,0,0,.35); transition: border-color .15s; }
+.robot-card:hover { border-color: var(--orange); }
+.robot-card img { width: 92px; height: 70px; aspect-ratio: auto; object-fit: cover; border: 0; }
+.robot-card b { display: block; font: 700 17px/1.05 var(--display); text-transform: uppercase; }
+.robot-card span { font: 600 11px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--orange); }
+@media (max-width: 900px) { .robot-card { position: static; width: 100%; margin-top: 12px; } }
+.tag { font: 700 10px/1 var(--mono); letter-spacing: .08em; background: var(--orange); color: var(--on-orange); padding: 3px 5px; margin-left: 6px; vertical-align: 2px; }
 @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
 
 /* Credential bar */

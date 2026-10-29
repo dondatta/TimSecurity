@@ -10,15 +10,15 @@ export default function Home() {
       <section className="hero">
         <div className="wrap">
           <div className="hero-copy">
-            <p className="eyebrow">Seattle, WA · Veteran-owned · Licensed &amp; bonded</p>
+            <p className="eyebrow">Seattle, WA · Veteran-owned · Now with robot patrol</p>
             <h1>Protecting <em className="hl">what you build</em></h1>
             <p className="lede">
-              Uniformed, service-minded security for Seattle hotels, residences, parking facilities and
-              construction sites. Our officers greet first, enforce second, and report every night.
+              Uniformed, service-minded officers for Seattle hotels, residences, parking facilities and construction
+              sites, now backed by autonomous patrol robots that cover every overnight round.
             </p>
             <div className="btn-row">
               <Link href="/contact" className="btn btn-primary">Get a Free Quote</Link>
-              <a href={company.phoneHref} className="btn btn-ghost">Call {company.phone}</a>
+              <Link href="/robotics" className="btn btn-ghost">See robot patrol</Link>
             </div>
           </div>
           <figure className="hero-media" style={{ margin: 0 }}>
@@ -31,6 +31,13 @@ export default function Home() {
               sizes="(max-width: 900px) 100vw, 50vw"
             />
             <figcaption>Watch for the white Jeep. Our marked patrol vehicle is on Seattle streets now.</figcaption>
+            <Link href="/robotics" className="robot-card">
+              <Image src="/images/robot-outdoor.jpg" alt="" width={773} height={580} sizes="92px" />
+              <div>
+                <span>New</span>
+                <b>Robot-assisted patrol</b>
+              </div>
+            </Link>
           </figure>
         </div>
       </section>
@@ -46,6 +53,27 @@ export default function Home() {
           </ul>
         </div>
       </div>
+
+      <section className="section on-char">
+        <div className="wrap stack" style={{ gap: 40 }}>
+          <div className="split">
+            <div className="copy">
+              <p className="eyebrow">New · Robot-assisted patrol</p>
+              <h2>24/7 patrol coverage <em className="hl">without 24/7 payroll</em></h2>
+            </div>
+            <div className="copy">
+              <p className="lede muted">
+                We&apos;re pairing our licensed officers with autonomous patrol robots and drones. The robots take the long,
+                repetitive overnight rounds and record everything. Our team verifies every alert and responds in person.
+              </p>
+              <div className="btn-row">
+                <Link href="/robotics" className="btn btn-primary">See how it works</Link>
+              </div>
+            </div>
+          </div>
+          <Fleet />
+        </div>
+      </section>
 
       <section className="section">
         <div className="wrap">
@@ -69,26 +97,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section on-char">
-        <div className="wrap stack" style={{ gap: 40 }}>
-          <div className="split">
-            <div className="copy">
-              <p className="eyebrow">New · Robot-assisted patrol</p>
-              <h2>24/7 patrol coverage <em className="hl">without 24/7 payroll</em></h2>
-            </div>
-            <div className="copy">
-              <p className="lede muted">
-                We&apos;re pairing our licensed officers with autonomous patrol robots and drones. The robots take the long,
-                repetitive overnight rounds and record everything. Our team verifies every alert and responds in person.
-              </p>
-              <div className="btn-row">
-                <Link href="/robotics" className="btn btn-primary">See how it works</Link>
-              </div>
-            </div>
-          </div>
-          <Fleet />
-        </div>
-      </section>
 
       <section className="section">
         <div className="wrap split">

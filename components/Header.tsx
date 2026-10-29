@@ -7,8 +7,8 @@ import { useEffect, useRef } from "react";
 import { company } from "@/lib/site";
 
 const links = [
+  { href: "/robotics", label: "Robot Patrol", isNew: true },
   { href: "/services", label: "Services" },
-  { href: "/robotics", label: "Robotics" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -35,6 +35,7 @@ export default function Header() {
           {links.map((l) => (
             <Link key={l.href} href={l.href} aria-current={current(l.href)}>
               {l.label}
+              {l.isNew && <span className="tag">New</span>}
             </Link>
           ))}
           <a className="phone" href={company.phoneHref}>{company.phone}</a>
@@ -45,7 +46,10 @@ export default function Header() {
           <div className="panel">
             <Link href="/">Home</Link>
             {links.map((l) => (
-              <Link key={l.href} href={l.href}>{l.label}</Link>
+              <Link key={l.href} href={l.href}>
+                {l.label}
+                {l.isNew && <span className="tag">New</span>}
+              </Link>
             ))}
             <a href={company.phoneHref}>Call {company.phone}</a>
           </div>
