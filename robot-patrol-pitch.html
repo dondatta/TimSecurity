@@ -3,32 +3,35 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a single spec-sheet page. A steel-ink hero band, then a two-column body (cost + capabilities | response chain + patrol log), then a contact strip. */
+/* Layout: a single spec-sheet page in UA Securities' own colors (logo charcoal + logo orange).
+   Charcoal hero with the logo, a photo row of the three unit types, a two-column body, then a contact strip. */
 :root {
-  --paper: #f3f4f2;
+  --paper: #efeeec;
   --sheet: #ffffff;
-  --ink: #17212b;
-  --muted: #56636f;
-  --rule: #d5dadd;
-  --steel: #1f3346;
-  --steel-fg: #eef2f5;
-  --signal: #f2b200;
-  --signal-ink: #1a1400;
-  --guard-bar: #9aa6b0;
+  --ink: #232323;
+  --muted: #5c5c5c;
+  --rule: #dcdad7;
+  --char: #464646;       /* exact logo background */
+  --char-deep: #3a3a3a;
+  --char-fg: #f4f4f4;
+  --orange: #f08a44;     /* logo orange */
+  --orange-ink: #b85a17; /* orange dark enough for text on white */
+  --on-orange: #241307;
+  --guard-bar: #a3a19d;
   --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #0e1419; --sheet: #151d24; --ink: #e6ebef; --muted: #9aa7b2; --rule: #2a3640;
-    --steel: #0a1218; --steel-fg: #e6ebef; --signal: #f5bd1f; --signal-ink: #1a1400; --guard-bar: #5d6b77;
+    --paper: #1b1b1b; --sheet: #242424; --ink: #ececec; --muted: #a4a4a4; --rule: #383838;
+    --guard-bar: #6b6966; --orange-ink: #f39a5a;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #0e1419; --sheet: #151d24; --ink: #e6ebef; --muted: #9aa7b2; --rule: #2a3640;
-  --steel: #0a1218; --steel-fg: #e6ebef; --signal: #f5bd1f; --signal-ink: #1a1400; --guard-bar: #5d6b77;
+  --paper: #1b1b1b; --sheet: #242424; --ink: #ececec; --muted: #a4a4a4; --rule: #383838;
+  --guard-bar: #6b6966; --orange-ink: #f39a5a;
   color-scheme: dark;
 }
 
@@ -43,47 +46,37 @@ body {
 .sheet { max-width: 920px; margin: 0 auto; background: var(--sheet); border: 1px solid var(--rule); }
 
 /* Hero */
-.hero { background: var(--steel); color: var(--steel-fg); padding: 28px 36px 32px; display: grid; gap: 18px; position: relative; overflow: hidden; }
+.hero { background: var(--char); color: var(--char-fg); padding: 24px 36px 34px; display: grid; gap: 18px; position: relative; overflow: hidden; }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
-  background: repeating-linear-gradient(135deg, var(--signal) 0 14px, var(--steel) 14px 28px); }
-.brand { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
-.brand b { font: 700 20px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; }
-.brand span { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+  background: repeating-linear-gradient(135deg, var(--orange) 0 14px, var(--char) 14px 28px); }
+.brand { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px 20px; }
+.brand img { height: 74px; width: auto; display: block; }
+.brand span { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; opacity: .8; text-align: right; }
 h1 { font: 800 clamp(34px, 6vw, 56px)/.98 var(--display); text-transform: uppercase; margin: 0; text-wrap: balance; letter-spacing: .005em; }
-h1 em { font-style: normal; color: var(--signal); }
-.lede { margin: 0; max-width: 60ch; font-size: 16.5px; opacity: .92; }
+h1 em { font-style: normal; color: var(--orange); }
+.lede { margin: 0; max-width: 62ch; font-size: 16.5px; opacity: .92; }
 .facts { margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 12px 36px; }
 .facts div { display: grid; gap: 2px; }
-.facts dt { font: 700 22px/1 var(--display); text-transform: uppercase; color: var(--signal); }
+.facts dt { font: 700 22px/1 var(--display); text-transform: uppercase; color: var(--orange); }
 .facts dd { margin: 0; font-size: 13px; opacity: .8; }
 
-/* Fleet */
+/* Fleet photos */
 .fleet { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--rule); }
-.unit { display: grid; grid-template-columns: 76px 1fr; gap: 12px; align-items: center; padding: 20px 24px; min-width: 0; }
+.unit { display: grid; grid-template-rows: auto 1fr; min-width: 0; }
 .unit + .unit { border-left: 1px solid var(--rule); }
-.unit svg { width: 76px; height: 76px; }
-.unit b { display: block; font: 700 19px/1.05 var(--display); text-transform: uppercase; margin-bottom: 3px; }
-.unit span { font-size: 13px; color: var(--muted); }
-.unit .body-fill { fill: var(--steel); stroke: var(--ink); stroke-width: 1.5; }
-.unit .band { fill: var(--ink); }
-.unit .lens { fill: var(--signal); }
-.unit .beacon { fill: var(--signal); }
-.unit .stripe { fill: var(--signal); }
-.unit .shadow { fill: var(--rule); }
-.unit .vent { fill: none; stroke: var(--steel-fg); stroke-width: 2; opacity: .45; }
-.unit .arm { fill: none; stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
-.unit .rotor { fill: var(--rule); stroke: var(--ink); stroke-width: 1.2; }
-.unit .scan { fill: none; stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.unit img, .unit .ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--char-deep); }
+.unit div { padding: 14px 20px 18px; }
+.unit b { display: block; font: 700 20px/1.05 var(--display); text-transform: uppercase; margin-bottom: 4px; }
+.unit span { font-size: 13.5px; color: var(--muted); }
 
 /* Body */
-.body { display: grid; grid-template-columns: 1.05fr 1fr; gap: 0; }
+.body { display: grid; grid-template-columns: 1.05fr 1fr; }
 .col { padding: 28px 36px; display: grid; gap: 28px; align-content: start; min-width: 0; }
 .col + .col { border-left: 1px solid var(--rule); }
-h2 { font: 700 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+h2 { font: 600 12.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--orange-ink); margin: 0 0 12px; }
 h3 { font: 700 24px/1.05 var(--display); text-transform: uppercase; margin: 0 0 10px; text-wrap: balance; }
 p { margin: 0; }
 
-/* Cost bars */
 .cost { display: grid; gap: 14px; }
 .row { display: grid; gap: 6px; }
 .row-head { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
@@ -91,105 +84,92 @@ p { margin: 0; }
 .track { position: relative; height: 18px; background: repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 11.111%); border-bottom: 1px solid var(--rule); }
 .range { position: absolute; top: 2px; bottom: 2px; }
 .range.guard { left: 38.889%; width: 55.556%; background: var(--guard-bar); }
-.range.robot { left: 7.778%; width: 8.889%; background: var(--signal); }
+.range.robot { left: 7.778%; width: 8.889%; background: var(--orange); }
 .axis { display: flex; justify-content: space-between; font: 400 11px/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
 .note { font-size: 12.5px; color: var(--muted); }
 
-/* Capabilities */
 .caps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
 .caps li { display: grid; gap: 2px; min-width: 0; }
 .caps b { font-weight: 600; font-size: 14.5px; }
 .caps span { font-size: 13.5px; color: var(--muted); }
 
-/* Response chain */
-.chain { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; counter-reset: step; }
+.chain { list-style: none; margin: 0; padding: 0; display: grid; counter-reset: step; }
 .chain li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); counter-increment: step; }
 .chain li:first-child { border-top: 0; padding-top: 0; }
-.chain li::before { content: counter(step); font: 700 22px/1 var(--display); color: var(--signal-ink); background: var(--signal); width: 34px; height: 34px; display: grid; place-items: center; }
+.chain li::before { content: counter(step); font: 700 22px/1 var(--display); color: var(--on-orange); background: var(--orange); width: 34px; height: 34px; display: grid; place-items: center; }
 .chain b { display: block; font-weight: 600; }
 .chain span { font-size: 13.5px; color: var(--muted); }
 
-/* Patrol log */
 .log { font: 400 12.5px/1.65 var(--mono); background: var(--paper); border: 1px solid var(--rule); padding: 12px 14px; overflow-x: auto; }
 .log table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
 .log td { padding: 0 10px 0 0; vertical-align: top; white-space: nowrap; }
 .log td:last-child { white-space: normal; padding-right: 0; }
 .log .t { color: var(--muted); }
-.flag { color: var(--signal-ink); background: var(--signal); padding: 0 4px; font-weight: 500; }
+.flag { color: var(--on-orange); background: var(--orange); padding: 0 4px; font-weight: 500; }
 .log-cap { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
 .sites { display: flex; flex-wrap: wrap; gap: 6px; }
 .sites span { font: 500 12px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; border: 1px solid var(--rule); padding: 7px 9px; }
+.trusted { font-size: 13.5px; color: var(--muted); }
+.trusted b { color: var(--ink); font-weight: 600; }
 
 /* Contact */
-.cta { border-top: 1px solid var(--rule); padding: 24px 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
-.cta h3 { margin: 0 0 4px; }
-.cta p { color: var(--muted); font-size: 14px; max-width: 46ch; }
-.contact { display: grid; gap: 4px; font: 500 14px/1.4 var(--mono); user-select: all; }
-.contact span { user-select: text; }
-.fine { padding: 0 36px 22px; font-size: 11.5px; color: var(--muted); }
+.cta { background: var(--char); color: var(--char-fg); padding: 24px 36px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 28px; }
+.cta h3 { margin: 0 0 4px; color: var(--orange); }
+.cta p { opacity: .85; font-size: 14px; max-width: 46ch; }
+.contact { display: grid; gap: 4px; font: 500 14px/1.4 var(--mono); }
+.contact .big { font: 700 24px/1.1 var(--display); letter-spacing: .02em; }
+.fine { padding: 14px 36px 18px; font-size: 11.5px; color: var(--muted); display: grid; gap: 4px; }
 
 @media (max-width: 760px) {
   .fleet { grid-template-columns: 1fr; }
-  .unit { padding: 14px 20px; }
   .unit + .unit { border-left: 0; border-top: 1px solid var(--rule); }
+  .unit img, .unit .ph { aspect-ratio: 16 / 9; }
   .body { grid-template-columns: 1fr; }
   .col + .col { border-left: 0; border-top: 1px solid var(--rule); }
-  .hero, .col, .cta { padding-left: 20px; padding-right: 20px; }
-  .fine { padding-left: 20px; padding-right: 20px; }
+  .hero, .col, .cta, .fine { padding-left: 20px; padding-right: 20px; }
+  .brand span { text-align: left; }
 }
 @media (max-width: 440px) { .caps { grid-template-columns: 1fr; } }
 </style>
 
 <article class="sheet">
   <header class="hero">
-    <div class="brand"><b>UA Hospitality</b><span>Robotics Security Division · Seattle</span></div>
+    <div class="brand">
+      <img src="img/ua-logo.png" alt="UA Securities LLC">
+      <span>Robot-Assisted Patrol<br>Seattle, WA</span>
+    </div>
     <h1>24/7 patrol coverage <em>without 24/7 payroll</em></h1>
-    <p class="lede">For 15 years we've protected downtown Seattle's luxury hotels and residential towers. Now we pair our licensed officers with autonomous patrol robots. The robot covers the long, repetitive rounds day and night, and our team responds the moment something looks wrong.</p>
+    <p class="lede">UA Securities protects Seattle hotels, residences, parking facilities and construction sites. Now we pair our licensed officers with autonomous patrol robots and drones. The robots cover the long, repetitive rounds day and night, and our team responds the moment something looks wrong.</p>
     <dl class="facts">
-      <div><dt>15 yrs</dt><dd>Protecting Seattle properties</dd></div>
-      <div><dt>WA licensed</dt><dd>Insured, vetted officers</dd></div>
-      <div><dt>One contract</dt><dd>Robot, monitoring, officers and upkeep</dd></div>
+      <div><dt>Veteran-owned</dt><dd>VOSB certified</dd></div>
+      <div><dt>Licensed &amp; bonded</dt><dd>Fully insured, vetted officers</dd></div>
+      <div><dt>One contract</dt><dd>Robots, monitoring, officers and upkeep</dd></div>
     </dl>
   </header>
 
   <section class="fleet" aria-label="Our robotic units">
-    <div class="unit">
-      <svg viewBox="0 0 120 120" role="img" aria-label="Outdoor patrol robot">
-        <ellipse cx="60" cy="108" rx="34" ry="5" class="shadow"/>
-        <path d="M34 104 L34 48 Q34 18 60 18 Q86 18 86 48 L86 104 Z" class="body-fill"/>
-        <rect x="34" y="40" width="52" height="12" class="band"/>
-        <circle cx="47" cy="46" r="2.6" class="lens"/><circle cx="60" cy="46" r="2.6" class="lens"/><circle cx="73" cy="46" r="2.6" class="lens"/>
-        <rect x="56" y="10" width="8" height="9" rx="2" class="beacon"/>
-        <rect x="34" y="88" width="52" height="5" class="stripe"/>
-        <path d="M44 64 h32 M44 72 h32" class="vent"/>
-      </svg>
+    <figure class="unit" style="margin:0">
+      <img src="img/patrol-robot.jpg" alt="Autonomous outdoor security patrol robot in a parking lot">
       <div><b>Outdoor patrol robots</b><span>Perimeters, garages, lots and grounds, around the clock.</span></div>
-    </div>
-    <div class="unit">
-      <svg viewBox="0 0 120 120" role="img" aria-label="Surveillance drone">
-        <path d="M40 52 L80 72 M80 52 L40 72" class="arm"/>
-        <ellipse cx="34" cy="49" rx="17" ry="3.5" class="rotor"/><ellipse cx="86" cy="49" rx="17" ry="3.5" class="rotor"/>
-        <ellipse cx="34" cy="75" rx="17" ry="3.5" class="rotor"/><ellipse cx="86" cy="75" rx="17" ry="3.5" class="rotor"/>
-        <rect x="46" y="54" width="28" height="16" rx="5" class="body-fill"/>
-        <circle cx="60" cy="78" r="5.5" class="band"/><circle cx="60" cy="78" r="2.4" class="lens"/>
-        <rect x="56" y="57" width="8" height="3" rx="1.5" class="beacon"/>
-        <path d="M60 88 L44 112 M60 88 L76 112" class="scan"/>
-      </svg>
+    </figure>
+    <figure class="unit" style="margin:0">
+      <img src="img/drone.jpg" alt="Camera drone in flight">
       <div><b>Aerial drones</b><span>Fast sweeps and incident overwatch on large sites.</span></div>
-    </div>
-    <div class="unit">
-      <svg viewBox="0 0 120 120" role="img" aria-label="Indoor monitoring robot">
-        <ellipse cx="60" cy="108" rx="24" ry="4" class="shadow"/>
-        <rect x="44" y="20" width="32" height="86" rx="10" class="body-fill"/>
-        <rect x="48" y="28" width="24" height="16" rx="3" class="band"/>
-        <circle cx="60" cy="36" r="3" class="lens"/>
-        <rect x="52" y="14" width="16" height="7" rx="3" class="beacon"/>
-        <rect x="44" y="92" width="32" height="5" class="stripe"/>
-        <path d="M52 58 h16 M52 66 h16" class="vent"/>
+    </figure>
+    <figure class="unit" style="margin:0">
+      <svg class="ph" viewBox="0 0 160 120" role="img" aria-label="Indoor security robot">
+        <rect width="160" height="120" fill="var(--char)"/>
+        <path d="M0 96 H160" stroke="var(--char-deep)" stroke-width="2"/>
+        <ellipse cx="80" cy="104" rx="22" ry="4" fill="var(--char-deep)"/>
+        <rect x="64" y="22" width="32" height="80" rx="10" fill="var(--char-fg)"/>
+        <rect x="68" y="30" width="24" height="15" rx="3" fill="var(--char-deep)"/>
+        <circle cx="80" cy="37.5" r="3" fill="var(--orange)"/>
+        <rect x="72" y="16" width="16" height="7" rx="3" fill="var(--orange)"/>
+        <rect x="64" y="88" width="32" height="5" fill="var(--orange)"/>
       </svg>
       <div><b>Indoor robots</b><span>After-hours corridors, access points, smoke and water alerts.</span></div>
-    </div>
+    </figure>
   </section>
 
   <div class="body">
@@ -251,9 +231,11 @@ p { margin: 0; }
       <div>
         <h2>Built for</h2>
         <div class="sites">
-          <span>Hotels</span><span>Residential towers</span><span>Parking garages</span><span>Office parks</span><span>Mixed-use properties</span><span>Class A residential</span>
+          <span>Hotels</span><span>Condos &amp; apartments</span><span>Parking garages</span><span>Construction sites</span><span>Office parks</span><span>Mixed-use properties</span>
         </div>
       </div>
+
+      <p class="trusted"><b>Trusted on Seattle properties:</b> Coast Hotels Seattle, Paramount Hotel Seattle and Thompson Hotel Seattle.</p>
     </section>
   </div>
 
@@ -263,10 +245,13 @@ p { margin: 0; }
       <p>We walk your property, map a patrol route, and show you what robot-assisted coverage would cost next to your current guard hours. Pilots are available for existing clients.</p>
     </div>
     <div class="contact">
-      <span>UA Hospitality · Seattle, WA</span>
-      <span>[(555) 000-0000]</span>
-      <span>[email@yourcompany.com]</span>
+      <span class="big">(206) 605-8091</span>
+      <span>info@uasecurities.com</span>
+      <span>uasecurities.com</span>
     </div>
   </footer>
-  <p class="fine">Hourly figures are published 2026 industry ranges for US guard services and leased security robots, shown for comparison only. They are not a quote.</p>
+  <div class="fine">
+    <p>Hourly figures are published 2026 industry ranges for US guard services and leased security robots, shown for comparison only. They are not a quote.</p>
+    <p>Photos: Knightscope K5 by Votpuske, DJI Mavic 3 by HKesteloo, via Wikimedia Commons (CC BY-SA 4.0). Illustrative of equipment types, not UA Securities units.</p>
+  </div>
 </article>
