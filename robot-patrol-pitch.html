@@ -52,6 +52,10 @@ body {
 h1 { font: 800 clamp(34px, 6vw, 56px)/.98 var(--display); text-transform: uppercase; margin: 0; text-wrap: balance; letter-spacing: .005em; }
 h1 em { font-style: normal; color: var(--signal); }
 .lede { margin: 0; max-width: 60ch; font-size: 16.5px; opacity: .92; }
+.facts { margin: 4px 0 0; display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.facts div { display: grid; gap: 2px; }
+.facts dt { font: 700 22px/1 var(--display); text-transform: uppercase; color: var(--signal); }
+.facts dd { margin: 0; font-size: 13px; opacity: .8; }
 
 /* Body */
 .body { display: grid; grid-template-columns: 1.05fr 1fr; gap: 0; }
@@ -118,9 +122,14 @@ p { margin: 0; }
 
 <article class="sheet">
   <header class="hero">
-    <div class="brand"><b>[Your Company Name]</b><span>Robot-Assisted Patrol</span></div>
+    <div class="brand"><b>UA Hospitality</b><span>Robotics Security Division · Seattle</span></div>
     <h1>24/7 patrol coverage <em>without 24/7 payroll</em></h1>
-    <p class="lede">We add an autonomous security robot to your site. It patrols on a set route day and night, records everything, and alerts our monitoring team the moment something looks wrong. Our licensed officers respond when a person is needed.</p>
+    <p class="lede">For 15 years we've protected downtown Seattle's luxury hotels and residential towers. Now we pair our licensed officers with autonomous patrol robots. The robot covers the long, repetitive rounds day and night, and our team responds the moment something looks wrong.</p>
+    <dl class="facts">
+      <div><dt>15 yrs</dt><dd>Protecting Seattle properties</dd></div>
+      <div><dt>WA licensed</dt><dd>Insured, vetted officers</dd></div>
+      <div><dt>One contract</dt><dd>Robot, monitoring, officers and upkeep</dd></div>
+    </dl>
   </header>
 
   <div class="body">
@@ -137,18 +146,18 @@ p { margin: 0; }
             <div class="track"><div class="range robot"></div></div>
           </div>
           <div class="axis"><span>$0</span><span>$30</span><span>$60</span><span>$90</span></div>
-          <p class="note">Most sites keep a smaller officer team and let the robot cover the long, repetitive rounds, especially overnight. Your quote depends on site size, hours and coverage.</p>
+          <p class="note">With Seattle's minimum wage at $21.30/hr in 2026, overnight guard hours keep getting more expensive. Most properties keep a smaller officer team and let the robot take the overnight rounds. Your quote depends on site size, hours and coverage.</p>
         </div>
       </div>
 
       <div>
         <h2>What the robot does</h2>
         <ul class="caps">
-          <li><b>360° HD video</b><span>Recorded continuously and searchable after any incident.</span></li>
+          <li><b>360° day, night &amp; thermal video</b><span>Recorded continuously and searchable after any incident.</span></li>
           <li><b>Never skips a round</b><span>Same route, every time, with time-stamped proof.</span></li>
           <li><b>Plate &amp; motion detection</b><span>Flags after-hours vehicles and people in restricted areas.</span></li>
           <li><b>Two-way audio</b><span>Our team can speak to anyone on site through the robot.</span></li>
-          <li><b>A visible deterrent</b><span>A marked patrol unit discourages loitering and theft.</span></li>
+          <li><b>Discreet for guests</b><span>Steady presence in lots and corridors that deters trouble without crowding the lobby.</span></li>
           <li><b>No sick days</b><span>Coverage holds through holidays, weather and shift gaps.</span></li>
         </ul>
       </div>
@@ -168,9 +177,9 @@ p { margin: 0; }
         <h2>Sample overnight patrol log</h2>
         <div class="log">
           <table>
-            <tr><td class="t">22:00</td><td>Patrol start · Lot A → Dock 3 → Lot B</td></tr>
-            <tr><td class="t">23:42</td><td>Round 4 complete · all gates closed</td></tr>
-            <tr><td class="t">01:17</td><td><span class="flag">ALERT</span> Person at Dock 3 fence</td></tr>
+            <tr><td class="t">22:00</td><td>Patrol start · Garage P1 → P2 → Loading dock</td></tr>
+            <tr><td class="t">23:42</td><td>Round 4 complete · all doors secured</td></tr>
+            <tr><td class="t">01:17</td><td><span class="flag">ALERT</span> Person at loading dock door</td></tr>
             <tr><td class="t">01:18</td><td>Operator voice warning issued</td></tr>
             <tr><td class="t">01:19</td><td>Subject left area · officer notified</td></tr>
             <tr><td class="t">06:00</td><td>Patrol end · 16 rounds · report sent</td></tr>
@@ -182,7 +191,7 @@ p { margin: 0; }
       <div>
         <h2>Built for</h2>
         <div class="sites">
-          <span>Parking lots</span><span>Warehouses</span><span>Construction sites</span><span>Retail centers</span><span>Office campuses</span><span>Apartment communities</span>
+          <span>Hotels</span><span>Residential towers</span><span>Parking garages</span><span>Office parks</span><span>Mixed-use properties</span><span>Class A residential</span>
         </div>
       </div>
     </section>
@@ -191,10 +200,10 @@ p { margin: 0; }
   <footer class="cta">
     <div>
       <h3>Book a free site assessment</h3>
-      <p>We walk your property, map a patrol route, and show you what robot-assisted coverage would cost next to your current guard hours.</p>
+      <p>We walk your property, map a patrol route, and show you what robot-assisted coverage would cost next to your current guard hours. Pilots are available for existing clients.</p>
     </div>
     <div class="contact">
-      <span>[Contact name]</span>
+      <span>UA Hospitality · Seattle, WA</span>
       <span>[(555) 000-0000]</span>
       <span>[email@yourcompany.com]</span>
     </div>
